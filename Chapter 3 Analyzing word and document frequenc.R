@@ -229,4 +229,24 @@ freq_by_rank %>%
   geom_line(size = 1.1, alpha = 0.8, show.legend = FALSE) + 
   scale_x_log10() +
   scale_y_log10()
-#we can see that it's pretty close 
+#we can see that it's pretty close to the line of best fit 
+
+#let's look at tf-idf now to see what the important words are 
+call_tf_idf <- call_words %>%
+  bind_tf_idf(word, Speaker, n) #make sure to include Speaker!
+call_tf_idf
+
+#now let's prune this to be the words that are higher in tf_idf
+call_tf_idf %>%
+  select(-total) %>%
+  arrange(desc(tf_idf))
+
+#again, we see a tonnnn of proper nouns, but let's visualize this 
+call_tf_idf %>%
+  group_by(Speaker) %>%
+  slice_max(tf_idf, n = 15) %>%
+  ungroup() %>%
+  ggplot(aes(tf_idf, fct_reorder(word, tf_idf), fill = Speaker)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~Speaker, ncol = 2, scales = "free") +
+  labs(x = "tf-idf", y = NULL)

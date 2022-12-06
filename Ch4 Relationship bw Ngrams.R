@@ -473,3 +473,6 @@ ggraph(bigram_graph, layout = "fr") +
   geom_node_point(color = "lightblue", size = 5) +
   geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
   theme_void()
+=======
+pacman::p_load(tidyverse, tidytext,janeaustenr, igraph,ggraph,  install = T)
+>>>>>>> e285558d9a6a0a325dc50f3498d55b321dd245bf

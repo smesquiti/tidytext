@@ -444,7 +444,7 @@ bigrams_separated <- df_bigrams %>%
   separate(bigram, c("word1", "word2"), sep = " ")
 })
 
-
+###take out stop words
 job::job({
   bigrams_filtered <- bigrams_separated %>%
   filter(!word1 %in% stop_words$word) %>%
